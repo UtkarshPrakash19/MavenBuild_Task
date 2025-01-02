@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 public class App {
     private static final Logger logger = Logger.getLogger(App.class.getName());
-    private static final String GREETING_MESSAGE = "Hello World!";
+    public static final String GREETING_MESSAGE = "Hello World!";
 
     public static void main(String[] args) {
         logger.info(GREETING_MESSAGE);
