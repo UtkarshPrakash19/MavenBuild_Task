@@ -8,6 +8,12 @@
   <name>LoginAutomation</name>
   <url>http://maven.apache.org</url>
 
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <dependencies>
     <!-- JUnit 5 for testing -->
     <dependency>
@@ -24,7 +30,7 @@
       <version>4.11.0</version>
     </dependency>
 
-    <!-- WebDriver Manager (Optional: To avoid manual driver management) -->
+    <!-- WebDriver Manager -->
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
@@ -40,8 +46,18 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <!-- Maven Surefire Plugin for running tests -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <useModulePath>false</useModulePath>
         </configuration>
       </plugin>
 
@@ -53,31 +69,27 @@
         <executions>
           <!-- Prepare JaCoCo agent for coverage collection -->
           <execution>
-            <id>prepare-agent</id> <!-- Unique ID for the execution -->
+            <id>prepare-agent</id>
             <goals>
-              <goal>prepare-agent</goal> <!-- Run agent to collect coverage -->
+              <goal>prepare-agent</goal>
             </goals>
-            <phase>test</phase> <!-- Ensure it's run during the test phase -->
           </execution>
-          
-          <!-- Clean old .exec file to avoid issues with stale data -->
-          <execution>
-            <id>clean-exec-data</id> <!-- Unique ID for cleaning -->
-            <goals>
-              <goal>clean</goal>
-            </goals>
-            <phase>prepare-package</phase> <!-- Clean old .exec before packaging -->
-          </execution>
-          
           <!-- Generate report after tests are run -->
           <execution>
-            <id>generate-report</id> <!-- Unique ID for report generation -->
-            <phase>verify</phase> <!-- Ensure this happens after the test phase -->
+            <id>report</id>
             <goals>
-              <goal>report</goal> <!-- Generate the report -->
+              <goal>report</goal>
             </goals>
+            <phase>verify</phase>
           </execution>
         </executions>
+      </plugin>
+
+      <!-- SonarQube Maven Plugin -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
       </plugin>
     </plugins>
   </build>
