@@ -5,12 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LoginAutomationTest {
+class LoginAutomationTest {
 
     @Test
-    public void testLogin() {
+    void testLogin() {
         // Set up WebDriver for Firefox
         System.setProperty("webdriver.gecko.driver", "C:\\Users\\utka2\\Downloads\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver();
