@@ -5,12 +5,12 @@ public class App {
         System.out.println("Hello World!");
         // If "test" argument is passed, run the embedded test
         if (args.length > 0 && "test".equals(args[0])) {
-            runTests();  // This can now be called because runTests is static
+            runTests();
         }
     }
 
-    // Test method embedded within the App class
-    private static void runTests() {  // Make runTests static
+    // Change the access modifier to public or protected
+    public static void runTests() {
         String expectedOutput = "Hello World!";
         String actualOutput = getGreeting();
         // Test assertion logic
@@ -22,7 +22,7 @@ public class App {
     }
 
     // Method that we are testing
-    public static String getGreeting() {  // Keep getGreeting static for now
+    public static String getGreeting() {
         return "Hello World!";
     }
 
