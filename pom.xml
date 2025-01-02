@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example.automation</groupId>
+  <artifactId>LoginAutomation</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>LoginAutomation</name>
+  <url>http://maven.apache.org</url>
+
+  <dependencies>
+    <!-- JUnit 5 for testing -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Selenium WebDriver -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.11.0</version>
+    </dependency>
+
+    <!-- WebDriver Manager (Optional: To avoid manual driver management) -->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>5.5.3</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Maven Compiler Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+
+      <!-- JaCoCo for Code Coverage -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
+        <executions>
+          <!-- Prepare JaCoCo agent for coverage collection -->
+          <execution>
+            <id>prepare-agent</id> <!-- Unique ID for the execution -->
+            <goals>
+              <goal>prepare-agent</goal> <!-- Run agent to collect coverage -->
+            </goals>
+            <phase>test</phase> <!-- Ensure it's run during the test phase -->
+          </execution>
+          
+          <!-- Clean old .exec file to avoid issues with stale data -->
+          <execution>
+            <id>clean-exec-data</id> <!-- Unique ID for cleaning -->
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <phase>prepare-package</phase> <!-- Clean old .exec before packaging -->
+          </execution>
+          
+          <!-- Generate report after tests are run -->
+          <execution>
+            <id>generate-report</id> <!-- Unique ID for report generation -->
+            <phase>verify</phase> <!-- Ensure this happens after the test phase -->
+            <goals>
+              <goal>report</goal> <!-- Generate the report -->
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
