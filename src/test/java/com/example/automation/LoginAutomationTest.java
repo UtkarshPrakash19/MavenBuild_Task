@@ -4,18 +4,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LoginAutomationTest {
 
-    @Test
-    void testLogin() {
+    private static WebDriver driver;
+
+    @BeforeAll
+    static void setup() {
         // Set up WebDriver for Firefox
         System.setProperty("webdriver.gecko.driver", "C:\\Users\\utka2\\Downloads\\geckodriver.exe");
-        WebDriver driver = new FirefoxDriver();
+        driver = new FirefoxDriver();
+    }
 
+    @Test
+    void testLogin() {
         try {
             // Navigate to the Sauce Demo login page
             driver.get("https://www.saucedemo.com");
@@ -37,9 +43,28 @@ class LoginAutomationTest {
 
             // Use case-insensitive comparison to validate title
             assertEquals(expectedTitle.toLowerCase(), actualTitle.toLowerCase(), "Login test failed: Title mismatch.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AssertionError("Login test failed due to an exception.");
+        }
+    }
 
-        } finally {
-            // Close the browser
+    @Test
+    void testWelcomeMessage() {
+        // Create an instance of App
+        App app = new App();
+
+        // Call the method from App and check the result
+        String result = app.welcomeMessage("Utkarsh");
+
+        // Validate the result
+        assertEquals("Hello, Utkarsh!", result, "The welcome message should be correct.");
+    }
+
+    @AfterAll
+    static void tearDown() {
+        // Close the browser
+        if (driver != null) {
             driver.quit();
         }
     }
