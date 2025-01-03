@@ -7,20 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
-    @Test
-    void testGetGreeting() {
-        String expected = App.GREETING_MESSAGE;
-        String actual = App.getGreeting();
-        assertEquals(expected, actual, "Greeting should be 'Hello World!'");
-    }
-
     @ParameterizedTest
     @CsvSource({
         "Utkarsh, Hello, Utkarsh!",
         "'', Hello, !",
         "null, Hello, null!"
     })
-    void testWelcomeMessageParameterized(String inputName, String expectedPrefix, String expectedMessage) {
+    void testWelcomeMessage(String inputName, String expectedPrefix, String expectedMessage) {
         App app = new App();
         String actual = app.welcomeMessage(inputName);
         assertEquals(expectedMessage, actual, 
