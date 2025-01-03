@@ -8,7 +8,7 @@ public class App {
 
     public static void main(String[] args) {
         logger.info(GREETING_MESSAGE);
-        // If "test" argument is passed, run the embedded test
+        // If "test" argument passes,then we run the embedded test
         if (args.length > 0 && "test".equals(args[0])) {
             runTests();
         }
@@ -17,7 +17,7 @@ public class App {
     public static void runTests() {
         String expectedOutput = GREETING_MESSAGE;
         String actualOutput = getGreeting();
-        // Test assertion logic
+        //Here we have test assertion logic
         if (!expectedOutput.equals(actualOutput)) {
             throw new AssertionError("Test failed: Output mismatch!");
         } else {
@@ -25,12 +25,12 @@ public class App {
         }
     }
 
-    // Method that we are testing
+    // Method testing
     public static String getGreeting() {
         return GREETING_MESSAGE;
     }
 
-    // The method tested in LoginAutomationTest.java
+    //  Method tested in LoginAutomationTest.java
     public String welcomeMessage(String name) {
         return "Hello, " + name + "!";
     }
