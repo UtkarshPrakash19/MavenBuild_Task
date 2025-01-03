@@ -1,37 +1,62 @@
 package com.example.automation;
 
-import java.util.logging.Logger;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class App {
-    private static final Logger logger = Logger.getLogger(App.class.getName());
-    public static final String GREETING_MESSAGE = "Hello World!";
+class AppTest {
 
-    public static void main(String[] args) {
-        logger.info(GREETING_MESSAGE);
-        // If "test" argument passes,then we run the embedded test
-        if (args.length > 0 && "test".equals(args[0])) {
-            runTests();
-        }
+    @Test
+    void testGetGreeting() {
+        App app = new App();
+        String expected = App.GREETING_MESSAGE;
+        String actual = app.getGreeting();
+        assertEquals(expected, actual, "Greeting should be 'Hello World!'");
+    }
+    @Test
+    void testWelcomeMessage() {
+        App app = new App();
+        String name = "Utkarsh";
+        String expected = "Hello, Utkarsh!";
+        String actual = app.welcomeMessage(name);
+        assertEquals(expected, actual, "Welcome message should include the user's name.");
     }
 
-    public static void runTests() {
-        String expectedOutput = GREETING_MESSAGE;
-        String actualOutput = getGreeting();
-        //Here we have test assertion logic
-        if (!expectedOutput.equals(actualOutput)) {
-            throw new AssertionError("Test failed: Output mismatch!");
-        } else {
-            logger.info("Test passed: Output matches.");
-        }
+    @Test
+    void testWelcomeMessageWithEmptyName() {
+        App app = new App();
+        String name = "";
+        String expected = "Hello, !";
+        String actual = app.welcomeMessage(name);
+        assertEquals(expected, actual, "Welcome message should handle empty names.");
     }
 
-    // Method testing
-    public static String getGreeting() {
-        return GREETING_MESSAGE;
+    @Test
+    void testWelcomeMessageWithNullName() {
+        App app = new App();
+        String name = null;
+        String expected = "Hello, null!";
+        String actual = app.welcomeMessage(name);
+        assertEquals(expected, actual, "Welcome message should handle null names.");
     }
 
-    //  Method tested in LoginAutomationTest.java
-    public String welcomeMessage(String name) {
-        return "Hello, " + name + "!";
+    @Test
+    void testRunTests() {
+        App app = new App();
+        app.runTests(); 
+    }
+
+    
+    @Test
+    void testMainWithTestArgument() {
+        String[] args = {"test"};
+        App.main(args);
+    }
+
+   
+    @Test
+    void testMainWithoutArguments() {
+        String[] args = {};
+        App.main(args);
+      
     }
 }
