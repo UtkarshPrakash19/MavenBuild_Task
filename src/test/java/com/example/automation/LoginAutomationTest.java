@@ -15,7 +15,7 @@ class LoginAutomationTest {
 
     @BeforeAll
     static void setup() {
-        // Set up WebDriver for Firefox
+        // Seting up the  WebDriver for Firefox
         System.setProperty("webdriver.gecko.driver", "C:\\Users\\utka2\\Downloads\\geckodriver.exe");
         driver = new FirefoxDriver();
     }
@@ -23,7 +23,7 @@ class LoginAutomationTest {
     @Test
     void testLogin() {
         try {
-            // Navigate to the Sauce Demo login page
+            // Navigating to the Sauce Demo login page
             driver.get("https://www.saucedemo.com");
 
             // Locate the username and password fields
@@ -31,17 +31,16 @@ class LoginAutomationTest {
             WebElement passwordField = driver.findElement(By.id("password"));
             WebElement loginButton = driver.findElement(By.id("login-button"));
 
-            // Perform login using provided test credentials
+            // Performing login using provided test credentials
             usernameField.sendKeys("standard_user");
             passwordField.sendKeys("secret_sauce");
             loginButton.click();
 
-            // Validate successful login by checking the page title or a unique element
+            // Validating successful login by checking the page title or a unique element
             WebElement inventoryPageTitle = driver.findElement(By.className("title"));
             String expectedTitle = "PRODUCTS";
             String actualTitle = inventoryPageTitle.getText();
 
-            // Use case-insensitive comparison to validate title
             assertEquals(expectedTitle.toLowerCase(), actualTitle.toLowerCase(), "Login test failed: Title mismatch.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,19 +50,19 @@ class LoginAutomationTest {
 
     @Test
     void testWelcomeMessage() {
-        // Create an instance of App
+        // Created an instance of App
         App app = new App();
 
-        // Call the method from App and check the result
+    
         String result = app.welcomeMessage("Utkarsh");
 
-        // Validate the result
+        // Validating the result
         assertEquals("Hello, Utkarsh!", result, "The welcome message should be correct.");
     }
 
     @AfterAll
     static void tearDown() {
-        // Close the browser
+        // Closing the browser
         if (driver != null) {
             driver.quit();
         }
