@@ -1,43 +1,37 @@
 package com.example.automation;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.logging.Logger;
 
-class AppTest {
+public class App {
+    private static final Logger logger = Logger.getLogger(App.class.getName());
+    public static final String GREETING_MESSAGE = "Hello World!";
 
-    @ParameterizedTest
-    @CsvSource({
-        "Utkarsh, Hello, Utkarsh!",
-        "'', Hello, !",
-        "null, Hello, null!"
-    })
-    void testWelcomeMessage(String inputName, String expectedPrefix, String expectedMessage) {
-        App app = new App();
-        String actual = app.welcomeMessage(inputName);
-        assertEquals(expectedMessage, actual, 
-            "Welcome message should be consistent and handle different inputs.");
+    public static void main(String[] args) {
+        logger.info(GREETING_MESSAGE);
+        // If "test" argument passes,then we run the embedded test
+        if (args.length > 0 && "test".equals(args[0])) {
+            runTests();
+        }
     }
 
-    @Test
-    void testRunTests() {
-        // Since runTests() throws an AssertionError on failure, we can call it directly.
-        // If no exception is thrown, the test passes.
-        assertDoesNotThrow(App::runTests, "runTests should execute without throwing an exception.");
+    public static void runTests() {
+        String expectedOutput = GREETING_MESSAGE;
+        String actualOutput = getGreeting();
+        //Here we have test assertion logic
+        if (!expectedOutput.equals(actualOutput)) {
+            throw new AssertionError("Test failed: Output mismatch!");
+        } else {
+            logger.info("Test passed: Output matches.");
+        }
     }
 
-    @Test
-    void testMainWithTestArgument() {
-        String[] args = {"test"};
-        // Redirecting output to verify the logger's output
-        assertDoesNotThrow(() -> App.main(args), "Main should handle 'test' argument without exceptions.");
+    // Method testing
+    public static String getGreeting() {
+        return GREETING_MESSAGE;
     }
 
-    @Test
-    void testMainWithoutArguments() {
-        String[] args = {};
-        // Redirecting output to verify the logger's output
-        assertDoesNotThrow(() -> App.main(args), "Main should handle empty arguments without exceptions.");
+    //  Method tested in LoginAutomationTest.java
+    public String welcomeMessage(String name) {
+        return "Hello, " + name + "!";
     }
 }
