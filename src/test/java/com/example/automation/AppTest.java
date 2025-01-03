@@ -42,7 +42,7 @@ class AppTest {
     @Test
     void testRunTests() {
         App app = new App();
-        app.runTests(); .
+        app.runTests(); 
     }
 
     
