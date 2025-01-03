@@ -31,7 +31,7 @@ public class App {
     }
 
     //  Method tested in LoginAutomationTest.java
-    public String welcomeMessage(String name) {
-        return "Hello, " + name + "!";
-    }
+   public String welcomeMessage(String name) {
+    return name + "!";
+}
 }
